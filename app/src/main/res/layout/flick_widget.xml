@@ -1,0 +1,5 @@
+<StackView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/flick_widget_stack_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:loopViews="true" />
