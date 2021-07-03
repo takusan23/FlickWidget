@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 class WidgetHostActivity : Activity() {
 
     private val appWidgetManager by lazy { AppWidgetManager.getInstance(this.applicationContext) }
-    private val appWidgetHost by lazy { AppWidgetHost(this.applicationContext, R.string.app_name) }
+    private val appWidgetHost by lazy { AppWidgetHost(this.applicationContext, FlickWidget.WIDGET_HOST_ID) }
     private val widgetId by lazy { intent.extras?.getInt("widget_id")!! }
     private val flickWidgetId by lazy { intent.extras?.getInt("flick_widget_id")!! }
     private val activityWidgetHostBinding by lazy { ActivityWidgetHostBinding.inflate(layoutInflater) }

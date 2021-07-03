@@ -23,6 +23,9 @@ class FlickWidgetConfigureActivity : ComponentActivity() {
     /** ViewModel */
     private val viewModel by lazy { ViewModelProvider(this, FlickWidgetConfigureViewModelFactory(application, widgetId)).get(FlickWidgetConfigureViewModel::class.java) }
 
+    /** 保存したらtrue */
+    private var isSaved = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -38,14 +41,22 @@ class FlickWidgetConfigureActivity : ComponentActivity() {
     /** 編集完了 */
     private fun finishEditor() {
         // ウイジェット更新
-        val appWidgetManager = AppWidgetManager.getInstance(this)
         FlickWidget.updateAppWidget(this, widgetId)
         // 編集Activity終了
         val resultValue = Intent().apply {
             putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
         }
         setResult(Activity.RESULT_OK, resultValue)
+        isSaved = true
         finish()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (!isSaved) {
+            // セーブしていない場合はウィジェットを削除
+            viewModel.allDeleteWidgetIdFromFlickWidget()
+        }
     }
 
 }

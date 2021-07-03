@@ -39,4 +39,11 @@ class FlickWidgetConfigureViewModel(application: Application, private val flickW
         sendWidgetList()
     }
 
+    /**
+     * FlickWidgetに登録したウィジェットを削除
+     * */
+    fun allDeleteWidgetIdFromFlickWidget() {
+        flickWidgetDataRepository.deleteFlickWidget(flickWidgetId)
+    }
+
 }

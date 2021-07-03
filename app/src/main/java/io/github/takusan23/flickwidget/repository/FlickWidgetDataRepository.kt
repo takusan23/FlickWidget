@@ -1,13 +1,13 @@
 package io.github.takusan23.flickwidget.repository
 
+import android.appwidget.AppWidgetHost
 import android.content.Context
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import io.github.takusan23.flickwidget.data.FlickWidgetData
 import io.github.takusan23.flickwidget.tool.WidgetCapture
 import io.github.takusan23.flickwidget.tool.WidgetInfo
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
+import io.github.takusan23.flickwidget.widget.FlickWidget
 import org.json.JSONArray
 import java.io.File
 
@@ -47,17 +47,8 @@ class FlickWidgetDataRepository(private val context: Context) {
     suspend fun getFlickWidgetData(flickWidgetId: Int): List<FlickWidgetData> {
         val widgetInfoList = getWidgetInfoList(flickWidgetId)
         // ウイジェットのキャプチャーをした画像パスをいれたデータクラスを返す
-        return widgetInfoList
-            .map { widgetInfo ->
-                // 並列実行
-                GlobalScope.async { Pair(widgetInfo, WidgetCapture.capture(context, flickWidgetId, widgetInfo.widgetId)) }
-            }.map { async ->
-                // 並列実行したのですべてが終わるまで待機
-                async.await()
-            }.map { (info, imgPath) ->
-                // データクラスを返す
-                FlickWidgetData(info.widgetId, info.widgetLabel, imgPath)
-            }
+        val imgPathList = WidgetCapture.captureFromWidgetIdList(context, flickWidgetId, widgetInfoList.map { it.widgetId })
+        return widgetInfoList.mapIndexed { index, widgetInfo -> FlickWidgetData(widgetInfo.widgetId, widgetInfo.widgetLabel, imgPathList[index]) }
     }
 
     /**
@@ -107,6 +98,13 @@ class FlickWidgetDataRepository(private val context: Context) {
     fun deleteFlickWidget(flickWidgetId: Int) {
         prefSetting.edit(commit = true) { remove(flickWidgetId.toString()) }
         File(context.getExternalFilesDir(null), flickWidgetId.toString()).deleteRecursively()
+        val appWidgetHost = AppWidgetHost(context, FlickWidget.WIDGET_HOST_ID)
+        // 子供Widgetを消す
+        getWidgetInfoList(flickWidgetId).forEach { info ->
+            appWidgetHost.deleteAppWidgetId(info.widgetId)
+        }
+        // WidgetHostもやめる
+        appWidgetHost.deleteHost()
     }
 
 }

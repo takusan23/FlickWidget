@@ -42,6 +42,9 @@ class FlickWidget : AppWidgetProvider() {
 
     companion object {
 
+        /** [android.appwidget.AppWidgetHost]で渡すId */
+        const val WIDGET_HOST_ID = 23
+
         /**
          * ウイジェットを更新する関数
          * @param appWidgetId 更新するFlickWidgetのId
@@ -64,7 +67,6 @@ class FlickWidget : AppWidgetProvider() {
             appWidgetManager.updateAppWidget(appWidgetId, views)
             // StackView更新。忘れないで
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.flick_widget_stack_view)
-            val componentName = ComponentName(context, FlickWidget::class.java)
         }
     }
 

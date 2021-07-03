@@ -21,7 +21,9 @@ fun FlickWidgetConfigureScreen(viewModel: FlickWidgetConfigureViewModel, onSaveC
     val widgetList = viewModel.widgetIdList.observeAsState(initial = listOf())
     // ウイジェットピッカーコールバック
     val widgetPickerCallBack = rememberLauncherForActivityResult(contract = AddWidgetResultContracts()) { widgetId ->
-        viewModel.addWidgetIdFromFlickWidget(widgetId)
+        if (widgetId != null) {
+            viewModel.addWidgetIdFromFlickWidget(widgetId)
+        }
     }
 
     Scaffold(
