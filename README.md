@@ -15,7 +15,7 @@ Android 10からのナビゲーションジェスチャーと引き換えにデ�
 
 押したらウィジェットを見ることができます
 
-<img src="https://imgur.com/oT6xM5U.png" width="200">
+<img src="https://imgur.com/jDJI8es.png" width="200">
 
 # 開発中に観測した不具合
 以下観測した一例
@@ -25,3 +25,6 @@ Android 10からのナビゲーションジェスチャーと引き換えにデ�
 - ホーム画面においてあったウィジェットが再起動後全部なくなる
 
 # ダウンロード
+Playストアに上げれるほど安定してないのでひとまず
+
+https://github.com/takusan23/FlickWidget/releases
