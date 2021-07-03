@@ -1,7 +1,6 @@
 # FlickWidget
 
 <p align="center">
-<img src="https://imgur.com/gJ6mRvP.gif" width="200">
 <img src="https://imgur.com/Co7yznb.png" width="200">
 <img src="https://imgur.com/oIdkadG.png" width="200">
 </p>
@@ -10,8 +9,6 @@ AndroidのウィジェットをスクショしてiOSのスマートスタック�
 iOSには敵わないけどそれっぽい。  
 
 Android 10からのナビゲーションジェスチャーと引き換えにデフォルトのランチャーを使っているユーザーに捧げる...
-
-どうでもいいけど上のGIF、26MBある。mp4だと7MBだったんだけどなー？
 
 押したらウィジェットを見ることができます
 
